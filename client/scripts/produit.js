@@ -35,9 +35,9 @@ function item_to_html(item){
         .addClass('card-body')
         .append(' <h1 class="card-title text-center"> $' + item.prix +'</h1>')
         .append(item_detail)
-        .append('<p>' + item.description + '</p>')
+        .append('<p style="font-size: 12px">' + item.description + '</p>')
         //.append('<p class="w-100 display-6 text-center"><i class="bi bi-cart-plus"></i></p>'); //Doesn't work !
-        .append('<p class="w-100 display-6 text-center"><img src="cart.png"/></p>'); //Doesn't work !
+        .append('<p class="w-100 display-6 text-center"><img src="images/cart.png" alt="shopping cart" style="width: 50px"/></p>'); //Doesn't work !
     item_card.append(item_head).append(item_body);
     return $('<div></div>').addClass('col-md-3') .append(item_card);
 }
