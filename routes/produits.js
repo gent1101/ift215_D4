@@ -78,4 +78,5 @@ router.put('/:idProduit', validate(modifierProduitValidation, {}, {}), auth.admi
  */
 router.delete('/:idProduit', validate(adresseIdValidation, {}, {}), auth.admin, gProduits.effaceProduit.bind(gProduits));
 
+
 module.exports = router;
