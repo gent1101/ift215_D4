@@ -4,20 +4,54 @@
       <div class="input-group mb-3">
         <input type="search" class="form-control" placeholder="search">
         <span class="input-group-text"><i class="bi-search"></i></span>
-        <a href="#/panier" class="">
-          <button type="button" class="btn btn-primary position-relative">
-            <i class="bi bi-cart-plus"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge roundedpill
-bg-danger"
-                  id="item_counter">
-0
-</span>
-          </button>
-        </a>
       </div>
     </div>
   </div>
   <!-- Affichage de la liste de produits-->
-  <div class="row" id="list_items">
-  </div>
+    <div class="row" id="produits_page" >
+        <div class="row" id="list_items" style="width: 65%">
+        </div>
+        <div class="row position-absolute" id="cart_row" style="width: 35%;right: 5%;">
+            <div class="card mb-auto p-0 rounded-3 shadow-sm" id="cart_body">
+                <button type="button" class=" btn btn-primary position-relative" onclick="rechargerpanier()">
+                    <div style="text-align: center">
+                        <h2>Panier</h2>
+                    </div>
+                    <span class="position-absolute top-0 start-100 translate-middle badge roundedpill bg-danger" id="item_counter">
+                    0
+                    </span>
+                </button>
+                <section class="mt-2 container">
+                    <!-- Affichage de la liste de produits-->
+                    <style>
+                        table{border:2px solid #cccccc; width: 100%}
+                        tr{border:1px solid #cccccc}
+                    </style>
+
+
+                    <table id="cart_table" >
+                        <thead>
+                        <tr>
+                            <th style="width: 12%;"></th>
+                            <th style="width: 26%;">Nom</th>
+                            <th style="width: 18%;">Prix</th>
+                            <th style="width: 22%;">Quantité</th>
+                            <th style="width: 23%;">Sous-total</th>
+                        </tr>
+                        </thead>
+                        <tbody id="cart_items">
+                        <tbody/>
+                        <tbody id="cart_total_line">
+                        </tbody>
+                    </table>
+                </section>
+                <div style="height: 50px">
+                    <button type="button" class=" btn btn-primary position-absolute m-2 px-2 py-1" onclick="" style="right: 0px">
+                        <h7>Commander</h7>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>

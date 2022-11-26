@@ -15,6 +15,23 @@ function chargerproduit(){
                 });
             }
         });
+    chargerpanier();
+
+}
+function rechargerproduit(){
+    $.ajax({
+        url: "/produits",
+        success: function (result) {
+            //console.log(result);
+            $('#list_items').empty();
+            $.each(result, function (key, value) {
+                console.log(value);
+                item = item_to_html(value)
+                //console.log(item);
+                $('#list_items').append(item);
+            });
+        }
+    });
 
 }
 
@@ -40,7 +57,7 @@ function item_to_html(item){
                 '</button></p>');
 
     item_card.append(item_head).append(item_body);
-    return $('<div></div>').addClass('col-md-3') .append(item_card);
+    return $('<div></div>').addClass('col-md-4') .append(item_card);
 }
 
 function add_item(id_item){
@@ -55,6 +72,23 @@ function add_item(id_item){
         },
         success: function( result ) {
             $('#item_counter').text(result.items.length)
+            rechargerpanier();
+        }
+    });
+}
+
+function remove_item(id_item){
+    TOKEN_CLIENT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MSwicm9sZSI6ImNsaWVudCIsImlhdCI6MTYzNjc1MjI1MywiZXhwIjoxODM2NzUyMjUzfQ.qMcKC0NeuVseNSeGtyaxUvadutNAfzxlhL5LYPsRB8k";
+    $.ajax({
+        //url: "/clients/"+ID_CLIENT+"/panier/IdItem",
+        url: "/clients/1/panier/"+id_item,
+        method:"DELETE",
+        beforeSend: function (xhr){
+            xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_CLIENT);
+        },
+        success: function( result ) {
+            $('#item_counter').text(result.items.length)
+            rechargerpanier();
         }
     });
 }
@@ -68,6 +102,8 @@ function chargerpanier(){
         },
         success: function (result) {
             Total = total_to_html(result.valeur)
+            $('#cart_items').empty();
+            $('#cart_total_line').empty();
             $.each(result.items, function (key, value) {
                 item = cart_to_html(value)
                 $('#cart_items').append(item);
@@ -77,8 +113,14 @@ function chargerpanier(){
     });
 }
 
+function rechargerpanier(){
+    chargerpanier();
+    rechargerproduit();
+}
+
 function cart_to_html(item){
     item_tab = $('<tr></tr>')
+        .append('<td><button type="button" class="btn btn-danger position-relative m-0 p-0 " onclick="remove_item('+ item.id +')">&nbsp<i class="bi bi-trash-fill" style="font-size: 13px"></i>&nbsp</button></td>')
         .append('<td>' + item.nomProduit + '</td>')
         .append('<td>' + item.prix + '</td>')
         .append('<td>' + item.quantite + '</td>')
@@ -87,11 +129,11 @@ function cart_to_html(item){
 }
 function total_to_html(total){
     item_tab = $('<tr></tr>')
+        .append('<th>Total</th>')
         .append('<td></td>')
         .append('<td></td>')
         .append('<td></td>')
-        .append('<td></td>')
-        .append('<th>'+total+'</th>')
+        .append('<th>'+total.toFixed(2)+'</th>')
     return item_tab;
 }
 
