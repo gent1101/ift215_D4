@@ -24,19 +24,20 @@
                 <section class="mt-2 container">
                     <!-- Affichage de la liste de produits-->
                     <style>
-                        table{border:2px solid #cccccc; width: 100%}
-                        tr{border:1px solid #cccccc}
+
                     </style>
 
-
-                    <table id="cart_table" >
+                    <div class="rounded-3 p-0" style="border: 3px solid #cccccc;">
+                    <table  id="cart_table">
                         <thead>
                         <tr>
-                            <th style="width: 12%;"></th>
+                            <th style="width: 11%;"></th>
                             <th style="width: 26%;">Nom</th>
                             <th style="width: 18%;">Prix</th>
                             <th style="width: 22%;">Quantité</th>
                             <th style="width: 23%;">Sous-total</th>
+                        </tr>
+                        <tr style="border:1px solid #cccccc">
                         </tr>
                         </thead>
                         <tbody id="cart_items">
@@ -44,6 +45,7 @@
                         <tbody id="cart_total_line">
                         </tbody>
                     </table>
+                    </div>
                 </section>
                 <div style="height: 50px">
                     <button type="button" class=" btn btn-primary position-absolute m-2 px-2 py-1" onclick="" style="right: 0px">
