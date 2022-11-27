@@ -7,24 +7,30 @@
       </div>
     </div>
   </div>
-  <!-- Affichage de la liste de produits-->
+  <!-- Affichage de la page de produits-->
     <div class="row" id="produits_page" >
+        <!-- Affichage des produits-->
         <div class="row" id="list_items" style="width: 65%">
         </div>
+
+        <!-- Affichage du panier-->
         <div class="row position-absolute" id="cart_row" style="width: 35%;right: 5%;">
-            <div class="card mb-auto p-0 rounded-3 shadow-sm" id="cart_body">
-                <button type="button" class=" btn btn-primary position-relative" onclick="rechargerpanier()">
-                    <div style="text-align: center">
-                        <h2>Panier</h2>
-                    </div>
-                    <span class="position-absolute top-0 start-100 translate-middle badge roundedpill bg-danger" id="item_counter">
+            <button type="button" class=" btn btn-primary position-relative" onclick="rechargerpanier()">
+                <div style="text-align: center">
+                    <h2>Panier</h2>
+                </div>
+                <span class="position-absolute top-0 start-100 translate-middle badge roundedpill bg-danger" id="item_counter">
                     0
                     </span>
-                </button>
+            </button>
+            <div class="card mb-auto p-0 rounded-3 shadow-sm" id="cart_body">
+
                 <section class="mt-2 container">
                     <!-- Affichage de la liste de produits-->
                     <style>
-
+                        #commande_popup{
+                            display: none;
+                        }
                     </style>
 
                     <div class="rounded-3 p-0" style="border: 3px solid #cccccc;">
@@ -48,11 +54,153 @@
                     </div>
                 </section>
                 <div style="height: 50px">
-                    <button type="button" class=" btn btn-primary position-absolute m-2 px-2 py-1" onclick="" style="right: 0px">
+                    <button type="button" class=" btn btn-primary position-absolute m-2 px-2 py-1" onclick="commander_on()" style="right: 0px">
                         <h7>Commander</h7>
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="position-fixed bg-black bg-opacity-25" id="commande_popup" style="height: 100%; width: 100%;top: 0; left: 0;">
+        <div class="position-fixed bg-white rounded-3" style="height: 600px; width: 900px; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px solid black;">
+            <h1 class="text-center">Commande</h1>
+            <button type="button" class=" btn btn-danger position-absolute m-2 px-2 py-1" onclick="commander_off()" style="top: 0;right: 0px">
+                <i class="bi bi-x-lg"></i>
+            </button>
+            <div id="Info_livraison" style="width: 100%; height: 30%;">
+                <h4>Information de livraison</h4>
+                <label class="p-1" for="adresse" >Adresse:</label>
+                <input  type="text" id="adresse" name="adresse" style="position: absolute; left: 12%;width: 80%">
+                <br>
+                <label class="p-1" for="ville">Ville:</label>
+                <input  type="text" id="ville" name="ville" style="position: absolute; left: 12%;width: 80%">
+                <br>
+                <label class="p-1" for="province">Province:</label>
+                <select name="province" id="province" style="position: absolute; left: 12%;">
+                    <option value=""></option>
+                    <option value="Alberta">Alberta</option>
+                    <option value="Colombie-Britannique">Colombie-Britannique</option>
+                    <option value="Ile-du-Prince-Édouard">Ile-du-Prince-Édouard</option>
+                    <option value="Manitoba">Manitoba</option>
+                    <option value="Nouveau-Brunswick">Nouveau-Brunswick</option>
+                    <option value="Nouvelle-Ecosse">Nouvelle-Ecosse</option>
+                    <option value="Nunavut">Nunavut</option>
+                    <option value="Ontario">Ontario</option>
+                    <option value="Quebec">Quebec</option>
+                    <option value="Terre-Neuve-et-Labrador">Terre-Neuve-et-Labrador</option>
+                    <option value="Territoires du Nord-Ouest">Territoires du Nord-Ouest</option>
+                    <option value="Saskatchewan">Saskatchewan</option>
+                    <option value="Yukon">Yukon</option>
+                </select>
+                <br>
+                <label class="p-1" for="CP">Code Postal:</label>
+                <input type="text" id="CP" name="CP" style="position: absolute; left: 12%;width: 10%">
+
+            </div>
+            <div id="Info_paiement" style="width: 100%; height: 25%;">
+                <h4>Information de paiement</h4>
+                <label class="p-1" for="card_name" >Nom sur la carte:</label>
+                <input  type="text" id="card_name" name="card_name" style="position: absolute; left: 17%;width: 75%">
+                <br>
+                <label class="p-1" for="card_num">Numéro de carte:</label>
+                <input  type="text" id="card_num" name="card_num" style="position: absolute; left: 17%;width: 75%">
+                <br>
+                <label class="p-1" for="card_date">Date d'exp:</label>
+                <input  type="month" id="card_date" name="card_date" style="position: absolute; left: 17%;">
+
+                <label class="p-1" for="CVC" style="position: absolute; left: 40%;">CVC:</label>
+                <input type="text" id="CVC" name="CVC" style="position: absolute; left: 45%;width: 10%">
+            </div>
+            <div id="Info_facturation" style="width: 100%; height: 20%;">
+                <h4>Information de facturation</h4>
+                <label class="p-1" for="email1" >Adresse courriel:</label>
+                <input  type="email" id="email1" name="email1" style="position: absolute; left: 19%;width: 73%">
+                <br>
+                <label class="p-1" for="email2">Confirmer le courriel:</label>
+                <input  type="email" id="email2" name="email2" style="position: absolute; left: 19%;width: 73%">
+                <br>
+            </div>
+            <div id="Confirmation_buttons" style="width: 100%; height: 15%;">
+                <button type="button" class=" btn btn-danger position-absolute m-2 p-3" onclick="commander_annuler()" style="bottom: 0;left: 0px">
+                    <h4>Annuler</h4>
+                </button>
+                <button type="button" class=" btn btn-success position-absolute m-2 p-3" onclick="conf_com_on()" style="bottom: 0;right: 0px">
+                    <h5>Confirmer et passer la commander</h5>
+                </button>
+            </div>
+
+        </div>
+        <div class="position-fixed bg-black bg-opacity-25 " id="conf_annul" style="height: 600px; width: 900px; top: 50%; left: 50%; transform: translate(-50%, -50%);display: none">
+            <div class="position-relative bg-white rounded-3" id="annulation_buttons" style="width: 30%; height: 20%; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px solid gray;">
+                <h6 class="text-center p-1">Êtes-vous sur de vouloir annuler ?</h6>
+                <button type="button" class=" btn btn-secondary position-absolute m-2 py-0 px-2" onclick="conf_annul_off()" style="bottom: 0;left: 0px">
+                    <h4>Non</h4>
+                </button>
+                <button type="button" class=" btn btn-secondary position-absolute m-2 py-0 px-2" onclick="commander_cancel()" style="bottom: 0;right: 0px">
+                    <h4>Oui</h4>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="position-fixed bg-black bg-opacity-25" id="confirmation_popup" style="height: 100%; width: 100%;top: 0; left: 0;display: none">
+        <div class="position-fixed bg-white rounded-3" style=" width: 600px; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px solid black;">
+            <h2 class="text-center">Confirmation de commande</h2>
+            <button type="button" class=" btn btn-danger position-absolute m-2 px-2 py-1" onclick="conf_com_off()" style="top: 0;right: 0px">
+                <i class="bi bi-x-lg"></i>
+            </button>
+            <div class="m-2" style="width: 95%">
+                <b style="font-size: 22px;">Numéro de la commande: </b>
+                <t> #0000001 </t>
+                <br>
+                <b style="font-size: 22px;">Adresse: </b>
+                <t> 2500 Bd de l'Université, Sherbrooke, QC J1K 2R1 </t>
+                <br>
+                <b style="font-size: 22px;">Date: </b>
+                <t id="date_com"></t>
+                <hr>
+            </div>
+            <div class="row p-0 m-2" style="width: 100%">
+                <!-- Affichage de la liste de produits-->
+                <div style="width: 60%">
+                    <h5 class="text-center">Articles</h5>
+                    <div class="rounded-3 mb-auto p-0" style="border: 3px solid #cccccc;">
+                        <table  id="cart_table_conf" style="width: 100%;">
+                            <thead>
+                            <tr>
+                                <th style="width: 29%;">Nom</th>
+                                <th style="width: 21%;">Prix</th>
+                                <th style="width: 25%;">Quantité</th>
+                                <th style="width: 27%;">Sous-total</th>
+                            </tr>
+                            <tr style="border:1px solid #cccccc">
+                            </tr>
+                            </thead>
+                            <tbody id="cart_items_conf">
+                            <tbody/>
+                            <tbody id="cart_total_line_conf">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="text-center  p-0 m-1" style="width: 35%;">
+                    <br>
+                <h6>
+                    Merci d'avoir magasiner
+                    Pro-Gramme. Le reçu a
+                    été envoyé à l'adresse
+                    courriel suivante:
+                </h6>
+                    <p id="courriel_conf">adresse@courriel.com</p>
+                </div>
+            </div>
+            <div id="thanks_buttons" style="width: 100%; height: 60px;">
+                <button type="button" class=" btn btn-primary position-absolute m-2 p-2" onclick="conf_com_off()" style="bottom: 0;right: 0px">
+                    <h5>Merci !</h5>
+                </button>
+            </div>
+
         </div>
     </div>
 

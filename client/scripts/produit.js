@@ -114,15 +114,17 @@ function chargerpanier(){
             xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_CLIENT);
         },
         success: function (result) {
+            if(result.valeur == 0)
+                document.getElementById("cart_body").style.display="none";
             Total = total_to_html(result.valeur)
             $('#cart_items').empty();
             $('#cart_total_line').empty();
             $.each(result.items, function (key, value) {
+                document.getElementById("cart_body").style.display="block";
                 $.ajax({
                     url: "/produits/"+value.idProduit,
                     success: function (Produit){
                         item = cart_to_html(value, Produit)
-                        console.log(item)
                         $('#cart_items').append(item);
                         $('#cart_items').append('<tr style="border:1px solid #cccccc"></tr>');
                     }
@@ -174,16 +176,97 @@ function cart_to_html(item,Produit){
         .append('<td>' + (item.quantite*item.prix).toFixed(2) + '</td>');
     return (item_tab);
 }
-function total_to_html(total){
+
+function total_to_html(total) {
     item_tab = $('<tr></tr>')
         .append('<th>Total</th>')
         .append('<td></td>')
         .append('<td></td>')
         .append('<td></td>')
-        .append('<th>'+total.toFixed(2)+'</th>')
+        .append('<th id="total_value">' + total.toFixed(2) + '</th>')
     return item_tab;
 }
 
+function commander_on(){
+    document.getElementById("commande_popup").style.display="block";
+}
 
+function commander_off(){
+    document.getElementById("commande_popup").style.display="none";
+}
+function commander_annuler(){
+    conf_annul_on();
+}
+
+function commander_cancel(){
+    conf_annul_off();
+    commander_off()
+}
+
+function conf_annul_on(){
+    document.getElementById("conf_annul").style.display="block";
+}
+
+function conf_annul_off(){
+    document.getElementById("conf_annul").style.display="none";
+
+}
+
+function conf_com_on(){
+    commander_off()
+    chargerpanier_conf()
+    document.getElementById("confirmation_popup").style.display="block";
+}
+
+function conf_com_off(){
+    document.getElementById("confirmation_popup").style.display="none";
+
+}
+
+function chargerpanier_conf(){
+    n =  new Date();
+    y = n.getFullYear();
+    m = n.getMonth() + 1;
+    d = n.getDate();
+    document.getElementById("date_com").innerHTML = m + "/" + d + "/" + y;
+
+    TOKEN_CLIENT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MSwicm9sZSI6ImNsaWVudCIsImlhdCI6MTYzNjc1MjI1MywiZXhwIjoxODM2NzUyMjUzfQ.qMcKC0NeuVseNSeGtyaxUvadutNAfzxlhL5LYPsRB8k";
+    $.ajax({
+        url: "/clients/1/panier",
+        beforeSend: function (xhr){
+            xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_CLIENT);
+        },
+        success: function (result) {
+            Total = total_to_html_conf(result.valeur)
+            $('#cart_items_conf').empty();
+            $('#cart_total_line_conf').empty();
+            $.each(result.items, function (key, value) {
+                item = cart_to_html(value)
+                $('#cart_items_conf').append(item);
+                $('#cart_items_conf').append('<tr style="border:1px solid #cccccc"></tr>');
+
+            });
+            $('#cart_total_line_conf').append(Total);
+        }
+    });
+}
+
+function cart_to_html(item){
+    item_tab = $('<tr></tr>')
+        .append('<td>' + item.nomProduit + '</td>')
+        .append('<td>' + item.prix + '</td>')
+        .append('<td>'+ item.quantite +'</td>')
+        .append('<td>' + (item.quantite*item.prix).toFixed(2) + '</td>');
+    return (item_tab);
+}
+
+function total_to_html_conf(total) {
+    item_tab = $('<tr></tr>')
+        .append('<th>Total</th>')
+        .append('<td></td>')
+        .append('<td></td>')
+        .append('<th id="total_value">' + total.toFixed(2) + '</th>')
+    return item_tab;
+}
 
 
