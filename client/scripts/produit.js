@@ -1,4 +1,5 @@
 $(function () {
+
 });
 
 function chargerproduit(){
@@ -187,6 +188,15 @@ function total_to_html(total) {
 }
 
 function commander_on(){
+    var today = new Date();
+    var mm = today.getMonth() + 1; //Janvier = 0
+    var yyyy = today.getFullYear();
+
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    today = yyyy+'-'+mm
+    document.getElementById("card_date").min = today;
     document.getElementById("commande_popup").style.display="block";
 }
 
@@ -280,6 +290,8 @@ function confirmation_verification(){
     var email1 = document.getElementById("email1")
     var email2 = document.getElementById("email2")
 
+    exp.min='2022-11'
+
     var adresse_empty = isEmpty(adresse)
     var ville_empty = isEmpty(ville)
     var province_empty = isEmpty(province)
@@ -353,5 +365,6 @@ function emailIsBad(input){
     else
         return false;
 }
+
 
 
