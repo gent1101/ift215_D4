@@ -67,16 +67,24 @@
             <button type="button" class=" btn btn-danger position-absolute m-2 px-2 py-1" onclick="commander_off()" style="top: 0;right: 0px">
                 <i class="bi bi-x-lg"></i>
             </button>
+            <style>
+                input, select {
+                    border: 1px solid gray;
+                    border-radius: 3px;
+                    background-color: white;
+                }
+
+            </style>
             <div id="Info_livraison" style="width: 100%; height: 30%;">
                 <h4>Information de livraison</h4>
                 <label class="p-1" for="adresse" >Adresse:</label>
-                <input  type="text" id="adresse" name="adresse" style="position: absolute; left: 12%;width: 80%">
+                <input  type="text" id="adresse" name="adresse" style="position: absolute; left: 12%;width: 80%;" onchange="isEmpty(this)">
                 <br>
                 <label class="p-1" for="ville">Ville:</label>
-                <input  type="text" id="ville" name="ville" style="position: absolute; left: 12%;width: 80%">
+                <input  type="text" id="ville" name="ville" style="position: absolute; left: 12%;width: 80%" onchange="isEmpty(this)">
                 <br>
                 <label class="p-1" for="province">Province:</label>
-                <select name="province" id="province" style="position: absolute; left: 12%;">
+                <select name="province" id="province" style="position: absolute; left: 12%;" onchange="isEmpty(this)">
                     <option value=""></option>
                     <option value="Alberta">Alberta</option>
                     <option value="Colombie-Britannique">Colombie-Britannique</option>
@@ -93,38 +101,39 @@
                     <option value="Yukon">Yukon</option>
                 </select>
                 <br>
-                <label class="p-1" for="CP">Code Postal:</label>
-                <input type="text" id="CP" name="CP" style="position: absolute; left: 12%;width: 10%">
+                <label class="p-1" for="CP"  >Code Postal:</label>
+                <input type="text" id="CP" name="CP" maxlength="6" style="position: absolute; left: 12%;width: 10%" onchange="isEmpty(this)">
 
             </div>
             <div id="Info_paiement" style="width: 100%; height: 25%;">
                 <h4>Information de paiement</h4>
                 <label class="p-1" for="card_name" >Nom sur la carte:</label>
-                <input  type="text" id="card_name" name="card_name" style="position: absolute; left: 17%;width: 75%">
+                <input  type="text" id="card_name" name="Nom sur la carte" style="position: absolute; left: 17%;width: 75%" onchange="isEmpty(this)">
                 <br>
                 <label class="p-1" for="card_num">Numéro de carte:</label>
-                <input  type="text" id="card_num" name="card_num" style="position: absolute; left: 17%;width: 75%">
+                <input  type="text" id="card_num" name="Numéro de carte" maxlength="16" style="position: absolute; left: 17%;width: 75%" onchange="isEmpty(this)">
                 <br>
                 <label class="p-1" for="card_date">Date d'exp:</label>
-                <input  type="month" id="card_date" name="card_date" style="position: absolute; left: 17%;">
+                <input  type="month" id="card_date" name="Date d'exp" style="position: absolute; left: 17%;" onchange="isEmpty(this)">
 
                 <label class="p-1" for="CVC" style="position: absolute; left: 40%;">CVC:</label>
-                <input type="text" id="CVC" name="CVC" style="position: absolute; left: 45%;width: 10%">
+                <input type="text" id="CVC" name="CVC" maxlength="3" style="position: absolute; left: 45%;width: 10%" onchange="isEmpty(this)">
             </div>
             <div id="Info_facturation" style="width: 100%; height: 20%;">
                 <h4>Information de facturation</h4>
                 <label class="p-1" for="email1" >Adresse courriel:</label>
-                <input  type="email" id="email1" name="email1" style="position: absolute; left: 19%;width: 73%">
+                <input  type="email" id="email1" name="Adresse courriel" style="position: absolute; left: 19%;width: 73%" onchange="isEmpty(this)">
                 <br>
                 <label class="p-1" for="email2">Confirmer le courriel:</label>
-                <input  type="email" id="email2" name="email2" style="position: absolute; left: 19%;width: 73%">
+                <input  type="email" id="email2" name="Confirmation du courriel" style="position: absolute; left: 19%;width: 73%" onchange="isEmpty(this)">
                 <br>
             </div>
             <div id="Confirmation_buttons" style="width: 100%; height: 15%;">
                 <button type="button" class=" btn btn-danger position-absolute m-2 p-3" onclick="commander_annuler()" style="bottom: 0;left: 0px">
                     <h4>Annuler</h4>
                 </button>
-                <button type="button" class=" btn btn-success position-absolute m-2 p-3" onclick="conf_com_on()" style="bottom: 0;right: 0px">
+                <!-- <button type="button" class=" btn btn-success position-absolute m-2 p-3" onclick="conf_com_on()" style="bottom: 0;right: 0px"> -->
+                <button type="button" class=" btn btn-success position-absolute m-2 p-3" onclick="confirmation_verification()" style="bottom: 0;right: 0px">
                     <h5>Confirmer et passer la commander</h5>
                 </button>
             </div>
@@ -145,7 +154,7 @@
 
 
     <div class="position-fixed bg-black bg-opacity-25" id="confirmation_popup" style="height: 100%; width: 100%;top: 0; left: 0;display: none">
-        <div class="position-fixed bg-white rounded-3" style=" width: 600px; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px solid black;">
+        <div class="position-fixed bg-white rounded-3" style=" width: 600px; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px solid #000000;">
             <h2 class="text-center">Confirmation de commande</h2>
             <button type="button" class=" btn btn-danger position-absolute m-2 px-2 py-1" onclick="conf_com_off()" style="top: 0;right: 0px">
                 <i class="bi bi-x-lg"></i>

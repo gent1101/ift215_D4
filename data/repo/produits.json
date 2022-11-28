@@ -44,7 +44,7 @@
         "nom": "carotte",
         "description": "pas un jouet",
         "prix": 1.23,
-        "qte_inventaire": 49,
+        "qte_inventaire": 50,
         "categorie": {
             "id": 1,
             "nom": "Prunier",

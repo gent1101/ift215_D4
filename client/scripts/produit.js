@@ -1,5 +1,4 @@
 $(function () {
-
 });
 
 function chargerproduit(){
@@ -241,7 +240,7 @@ function chargerpanier_conf(){
             $('#cart_items_conf').empty();
             $('#cart_total_line_conf').empty();
             $.each(result.items, function (key, value) {
-                item = cart_to_html(value)
+                item = cart_to_html_conf(value)
                 $('#cart_items_conf').append(item);
                 $('#cart_items_conf').append('<tr style="border:1px solid #cccccc"></tr>');
 
@@ -251,7 +250,7 @@ function chargerpanier_conf(){
     });
 }
 
-function cart_to_html(item){
+function cart_to_html_conf(item){
     item_tab = $('<tr></tr>')
         .append('<td>' + item.nomProduit + '</td>')
         .append('<td>' + item.prix + '</td>')
@@ -267,6 +266,92 @@ function total_to_html_conf(total) {
         .append('<td></td>')
         .append('<th id="total_value">' + total.toFixed(2) + '</th>')
     return item_tab;
+}
+
+function confirmation_verification(){
+    var adresse = document.getElementById("adresse")
+    var ville = document.getElementById("ville")
+    var province = document.getElementById("province")
+    var cp = document.getElementById("CP")
+    var card_num = document.getElementById("card_num")
+    var card_name = document.getElementById("card_name")
+    var exp = document.getElementById("card_date")
+    var CVC = document.getElementById("CVC")
+    var email1 = document.getElementById("email1")
+    var email2 = document.getElementById("email2")
+
+    var adresse_empty = isEmpty(adresse)
+    var ville_empty = isEmpty(ville)
+    var province_empty = isEmpty(province)
+    var cp_empty = isEmpty(cp)
+    var card_num_bad = NumIsBad(card_num)
+    var card_name_empty = isEmpty(card_name)
+    var exp_empty = isEmpty(exp)
+    var CVC_bad = NumIsBad(CVC)
+    var email1_bad = emailIsBad(email1)
+    var email2_bad = emailIsBad(email2)
+    var notSameEmails = true;
+
+    if(!email1_bad && !email2_bad) {
+        console.log("check emails")
+        notSameEmails = (email1.value != email2.value);
+        if(notSameEmails){
+            email2.style.backgroundColor = "#ffc6c6"
+            alert("La confirmation du courriel ne correspond pas")
+        }
+
+    }
+
+
+    //Si un est vide on fait on poursuit pas
+    if(adresse_empty || ville_empty || province_empty || cp_empty || card_name_empty || card_num_bad || exp_empty || CVC_bad || email1_bad || email2_bad || notSameEmails)
+        return;
+}
+function isEmpty(input){
+    if(input.value == '') {
+        input.style.backgroundColor = "#ffc6c6"
+        return true
+    }
+    else{
+        input.style.backgroundColor = "white"
+        return false
+    }
+}
+
+function NumIsBad(input){
+    if(input.value == '') {
+        input.style.backgroundColor = "#ffc6c6"
+        return true
+    }
+    if(input.value.length != input.maxLength){
+      input.style.backgroundColor = "#ffc6c6"
+        alert(input.name+" est trop court")
+      return true;
+    }
+    if(isNaN(input.value)){
+        input.style.backgroundColor = "#ffc6c6"
+        alert(input.name+" ne doit contenir que des chiffres")
+        return true;
+    }
+    else
+        return false
+
+}
+
+function emailIsBad(input){
+    input.value = input.value.replaceAll(' ', '');
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(input.value == '') {
+        input.style.backgroundColor = "#ffc6c6"
+        return true
+    }
+    if(!input.value.match(mailformat)) {
+        input.style.backgroundColor = "#ffc6c6"
+        alert(input.name + " n'est pas valide")
+        return true;
+    }
+    else
+        return false;
 }
 
 
