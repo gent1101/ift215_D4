@@ -64,7 +64,7 @@
     <div class="position-fixed bg-black bg-opacity-25" id="commande_popup" style="height: 100%; width: 100%;top: 0; left: 0;">
         <div class="position-fixed bg-white rounded-3" style="height: 600px; width: 900px; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px solid black;">
             <h1 class="text-center">Commande</h1>
-            <button type="button" class=" btn btn-danger position-absolute m-2 px-2 py-1" onclick="commander_off()" style="top: 0;right: 0px">
+            <button type="button" class=" btn btn-danger position-absolute m-2 px-2 py-1" onclick="commander_annuler()" style="top: 0;right: 0px">
                 <i class="bi bi-x-lg"></i>
             </button>
             <style>
@@ -161,10 +161,10 @@
             </button>
             <div class="m-2" style="width: 95%">
                 <b style="font-size: 22px;">Numéro de la commande: </b>
-                <t> #0000001 </t>
+                <t id="num_com_conf"></t>
                 <br>
                 <b style="font-size: 22px;">Adresse: </b>
-                <t> 2500 Bd de l'Université, Sherbrooke, QC J1K 2R1 </t>
+                <t id="adresse_conf"></t>
                 <br>
                 <b style="font-size: 22px;">Date: </b>
                 <t id="date_com"></t>
@@ -201,7 +201,7 @@
                     été envoyé à l'adresse
                     courriel suivante:
                 </h6>
-                    <p id="courriel_conf">adresse@courriel.com</p>
+                    <p id="courriel_conf"></p>
                 </div>
             </div>
             <div id="thanks_buttons" style="width: 100%; height: 60px;">

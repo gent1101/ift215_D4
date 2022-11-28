@@ -221,9 +221,30 @@ function conf_annul_off(){
 
 }
 
-function conf_com_on(){
+function charger_conf_com(){
+    //cacher la fenettre de commande
     commander_off()
+
+    //Date de la commande (aujourd'hui)
+    n =  new Date();
+    y = n.getFullYear();
+    m = n.getMonth() + 1;
+    d = n.getDate();
+    document.getElementById("date_com").innerHTML = m + "/" + d + "/" + y;
+
+    //Charger les information de la commande
+    var adresse = document.getElementById("adresse").value + ", " + document.getElementById("ville").value + ", " + document.getElementById("province").value + ", " + document.getElementById("CP").value
+    var num_com ="#"+"00000001"
+    var email = document.getElementById("email1").value
+
+    document.getElementById("adresse_conf").innerHTML = adresse;
+    document.getElementById("num_com_conf").innerHTML = num_com;
+    document.getElementById("courriel_conf").innerHTML = email;
+
+    //panier
     chargerpanier_conf()
+
+    //afficher la fenettre
     document.getElementById("confirmation_popup").style.display="block";
 }
 
@@ -233,11 +254,7 @@ function conf_com_off(){
 }
 
 function chargerpanier_conf(){
-    n =  new Date();
-    y = n.getFullYear();
-    m = n.getMonth() + 1;
-    d = n.getDate();
-    document.getElementById("date_com").innerHTML = m + "/" + d + "/" + y;
+
 
     TOKEN_CLIENT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MSwicm9sZSI6ImNsaWVudCIsImlhdCI6MTYzNjc1MjI1MywiZXhwIjoxODM2NzUyMjUzfQ.qMcKC0NeuVseNSeGtyaxUvadutNAfzxlhL5LYPsRB8k";
     $.ajax({
@@ -318,6 +335,9 @@ function confirmation_verification(){
     //Si un est vide on fait on poursuit pas
     if(adresse_empty || ville_empty || province_empty || cp_empty || card_name_empty || card_num_bad || exp_empty || CVC_bad || email1_bad || email2_bad || notSameEmails)
         return;
+
+    else
+        charger_conf_com()
 }
 function isEmpty(input){
     if(input.value == '') {
