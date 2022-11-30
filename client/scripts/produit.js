@@ -1,3 +1,4 @@
+
 $(function () {
 
 });
@@ -135,6 +136,22 @@ function chargerpanier(){
     });
 }
 
+function viderpanier(){
+    TOKEN_CLIENT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MSwicm9sZSI6ImNsaWVudCIsImlhdCI6MTYzNjc1MjI1MywiZXhwIjoxODM2NzUyMjUzfQ.qMcKC0NeuVseNSeGtyaxUvadutNAfzxlhL5LYPsRB8k";
+    $.ajax({
+        url: "/clients/1/panier",
+        beforeSend: function (xhr){
+            xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_CLIENT);
+        },
+        success: function (result) {
+            $.each(result.items, function (key, value) {
+                remove_item(value.id)
+            });
+            rechargerpanier();
+        }
+    });
+}
+
 function rechargerpanier(){
     chargerpanier();
     rechargerproduit();
@@ -223,6 +240,8 @@ function conf_annul_off(){
 
 function charger_conf_com(){
     //cacher la fenettre de commande
+    //viderpanier()
+    passercommander()
     commander_off()
 
     //Date de la commande (aujourd'hui)
@@ -384,6 +403,23 @@ function emailIsBad(input){
     }
     else
         return false;
+}
+
+function passercommander(){
+    TOKEN_CLIENT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MSwicm9sZSI6ImNsaWVudCIsImlhdCI6MTYzNjc1MjI1MywiZXhwIjoxODM2NzUyMjUzfQ.qMcKC0NeuVseNSeGtyaxUvadutNAfzxlhL5LYPsRB8k";
+    TOKEN_ADMIN  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MCwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjM2NzUyMzAxLCJleHAiOjE4MzY3NTk1MDF9.QYtVOl6o87doRiT2EsezLqtSpz27K-nEZ4KqcmZV5Ac";
+    //TOKEN_ADMIN  = "Un secret qui ne devrait pas etre ecrit directement ici"
+    $.ajax({
+        url: "/ventes",
+        method:"POST",
+        data: {"idClient": 1},
+        beforeSend: function (xhr){
+            xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_ADMIN);
+        },
+        success: function (result) {
+            console.log(result);
+        }
+    });
 }
 
 

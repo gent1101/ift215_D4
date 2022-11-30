@@ -1,0 +1,50 @@
+<section class="mt-2 container">
+    <div class="row">
+        <h1 class="text-center">Gestion des commande</h1>
+    </div>
+    <!-- Affichage de la page de produits-->
+    <div class="row m-auto p-2" id="ventes_page" >
+        <!-- Affichage des produits-->
+        <div class="card shadow border-secondary rounded-3 position-relative m-1 px-0" id="list_ventes" style="width: 49%; height: 400px;">
+            <h3 class="card-header text-center">Liste des commandes</h3>
+                <section class="mt-2 container" >
+                    <!-- Affichage de la liste des ventes-->
+                        <table  id="cart_table" style="width: 100%;">
+                            <thead>
+                            <tr>
+                                <th style="width: 33%;"># Commande</th>
+                                <th style="width: 33%;">Date</th>
+                                <th style="width: 33%;">Status</th>
+                            </tr>
+                            <tr style="border:1px solid #cccccc">
+                            </tr>
+                            </thead>
+                            <tbody id="cart_items">
+                            <tr class='clickable-row' onclick="chargerCommandeActive(this)">
+                                <td>Blah Blah</td> <td>1234567</td> <td>£158,000</td>
+                            </tr>
+                            <tbody/>
+                        </table>
+                </section>
+        </div>
+
+        <div class="card shadow border-primary rounded-3 position-relative m-1 px-0" id="vente_actuelle" style="width: 49%; height: 400px;">
+            <h3 class="card-header text-center">Commande en cours</h3>
+            <div class="m-2" style="width: 95%">
+                <b style="font-size: 16px;">Numéro de la commande: </b>
+                <t id="num_com_encour"></t>
+                <br>
+                <b style="font-size: 16px;">Adresse: </b>
+                <t id="adresse_com_encour"></t>
+                <br>
+                <b style="font-size: 16px;">Date: </b>
+                <t id="date_com_encour"></t>
+                <br>
+                <b style="font-size: 16px;">Status: </b>
+                <t id="status_com_encour"></t>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+</section>
