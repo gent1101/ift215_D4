@@ -5,11 +5,11 @@
     <!-- Affichage de la page de produits-->
     <div class="row m-auto p-2" id="ventes_page" >
         <!-- Affichage des produits-->
-        <div class="card shadow border-secondary rounded-3 position-relative m-1 px-0" id="list_ventes" style="width: 49%; height: 400px;">
+        <div class="card shadow border-secondary rounded-3 position-relative m-1 px-0" id="list_ventes" style="width: 49%; height: 500px;">
             <h3 class="card-header text-center">Liste des commandes</h3>
                 <section class="mt-2 container" >
                     <!-- Affichage de la liste des ventes-->
-                        <table  id="cart_table" style="width: 100%;">
+                        <table  id="vente_table" style="width: 100%;">
                             <thead>
                             <tr>
                                 <th style="width: 33%;"># Commande</th>
@@ -19,20 +19,17 @@
                             <tr style="border:1px solid #cccccc">
                             </tr>
                             </thead>
-                            <tbody id="cart_items">
-                            <tr class='clickable-row' onclick="chargerCommandeActive(this)">
-                                <td>Blah Blah</td> <td>1234567</td> <td>£158,000</td>
-                            </tr>
+                            <tbody id="vente_list">
                             <tbody/>
                         </table>
                 </section>
         </div>
 
-        <div class="card shadow border-primary rounded-3 position-relative m-1 px-0" id="vente_actuelle" style="width: 49%; height: 400px;">
+        <div class="card shadow border-primary rounded-3 position-relative m-1 px-0" id="vente_actuelle" style="width: 49%; height: 500px;">
             <h3 class="card-header text-center">Commande en cours</h3>
-            <div class="m-2" style="width: 95%">
+            <div class="m-2 mb-0 py-0" style="width: 95%">
                 <b style="font-size: 16px;">Numéro de la commande: </b>
-                <t id="num_com_encour"></t>
+                <t id="num_com_encour">#</t>
                 <br>
                 <b style="font-size: 16px;">Adresse: </b>
                 <t id="adresse_com_encour"></t>
@@ -42,7 +39,31 @@
                 <br>
                 <b style="font-size: 16px;">Status: </b>
                 <t id="status_com_encour"></t>
-                <hr>
+                <hr class="m-0 p-0">
+            </div>
+            <div class="py-0 mx-2" style="width: 95%">
+                <div  class="mb-auto m-2 p-0">
+                    <h4  class="text-center" id="cart_tittle_gest" style=" display: none">Selectionner une commande</h4>
+                    <table  id="cart_table_gest" style="width: 100%; display: none; border: 1px solid #cccccc;">
+                        <thead>
+                        <tr>
+                            <th style="width: 29%;">#Produit</th>
+                            <th style="width: 21%;">Nom</th>
+                            <th style="width: 25%;">Quantité</th>
+                            <th style="width: 27%;">Empacté</th>
+                        </tr>
+                        <tr style="border:1px solid #cccccc">
+                        </tr>
+                        </thead>
+                        <tbody id="cart_items_gestion">
+                        <tbody/>
+                    </table>
+                </div>
+            </div>
+            <div style="height: 50px">
+                <button type="button" class=" btn btn-primary position-absolute m-2 px-2 py-1" onclick="" style="bottom: 0px; right: 0px">
+                    <h7>Completer</h7>
+                </button>
             </div>
         </div>
     </div>

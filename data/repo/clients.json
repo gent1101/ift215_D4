@@ -1,12 +1,12 @@
 [
     {
         "id": 1,
-        "prenom": "Mathias34",
-        "nom": "Thomas",
+        "prenom": "Paul",
+        "nom": "Tremblay",
         "age": 18,
-        "adresse": "1 rue de terre",
+        "adresse": "4 rue de terre",
         "pays": "Canada",
-        "courriel": "aaa@bbb.com",
+        "courriel": "PaulTremblay@hotmail.com",
         "mdp": "$2b$08$CEfAuisfWI/driqC4REyfOo/y8RG0g1dw7ngClRLBk1QANEs.U53u",
         "panier": {
             "valeur": 24.76,
@@ -74,6 +74,22 @@
         "adresse": "1 rue de terre",
         "pays": "Canada",
         "courriel": "qwer@tyu.com",
+        "mdp": "$2b$08$SYOkCCz.wRs49Pv89.ohP.e.uoiQGcya7y5Vw9bRCAqmGtyoP6hi2",
+        "panier": {
+            "valeur": 0,
+            "items": []
+        },
+        "historique": []
+    },
+
+    {
+        "id": 3,
+        "prenom": "P-O",
+        "nom": "Grennier",
+        "age": 18,
+        "adresse": "15 rue de terre",
+        "pays": "Canada",
+        "courriel": "adresse@courriel.com",
         "mdp": "$2b$08$SYOkCCz.wRs49Pv89.ohP.e.uoiQGcya7y5Vw9bRCAqmGtyoP6hi2",
         "panier": {
             "valeur": 0,

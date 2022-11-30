@@ -406,9 +406,7 @@ function emailIsBad(input){
 }
 
 function passercommander(){
-    TOKEN_CLIENT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MSwicm9sZSI6ImNsaWVudCIsImlhdCI6MTYzNjc1MjI1MywiZXhwIjoxODM2NzUyMjUzfQ.qMcKC0NeuVseNSeGtyaxUvadutNAfzxlhL5LYPsRB8k";
     TOKEN_ADMIN  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MCwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjM2NzUyMzAxLCJleHAiOjE4MzY3NTk1MDF9.QYtVOl6o87doRiT2EsezLqtSpz27K-nEZ4KqcmZV5Ac";
-    //TOKEN_ADMIN  = "Un secret qui ne devrait pas etre ecrit directement ici"
     $.ajax({
         url: "/ventes",
         method:"POST",
@@ -421,6 +419,10 @@ function passercommander(){
         }
     });
 }
+
+
+
+
 
 
 
