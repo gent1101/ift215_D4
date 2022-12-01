@@ -48,7 +48,7 @@ class GestionVentes {
     const client = this.collectionClient.recupereClient(idClient);
     if (client) {
       if (client.panier.valeur > 0) {
-        const vente = new Vente(-1, idClient, client.panier.valeur, client.panier.items, this.statusPossibles.recue, new Date());
+        const vente = new Vente(this.collectionVente.recupereProchainID(), idClient, client.panier.valeur, client.panier.items, this.statusPossibles.recue, new Date());
         this.collectionClient.acheterPanier(client, vente);
         this.collectionVente.ajouterVente(vente);
         res.send(vente);

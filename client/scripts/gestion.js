@@ -79,7 +79,7 @@ function cmd_en_cours(vente_id){
                     }
                     if(vente.status == 'préparé'){
                         document.getElementById('cart_table_gest').style.display="none"
-                        $('#button_status').append('<h4>Envoyer</h4>')
+                        $('#button_status').append('<h4>Expédier</h4>')
                         document.getElementById('button_status').className = "btn btn-primary position-absolute m-2 px-2 py-1"
                         document.getElementById('button_status').onclick = function onclick(event) { changestatus(vente, 'en_route') }
                         document.getElementById('cart_table_gest_button').style.display="block"
@@ -156,6 +156,7 @@ function check_assemblage(){
         }
     });
 }
+
 function changestatus(cmd, nouveau_status){
     TOKEN_ADMIN  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MCwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjM2NzUyMzAxLCJleHAiOjE4MzY3NTk1MDF9.QYtVOl6o87doRiT2EsezLqtSpz27K-nEZ4KqcmZV5Ac";
     console.log(cmd.status)
@@ -175,5 +176,37 @@ function changestatus(cmd, nouveau_status){
                 rechargergestion();
             }
         });
+}
+
+function annuler_vente(){
+    TOKEN_ADMIN  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MCwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjM2NzUyMzAxLCJleHAiOjE4MzY3NTk1MDF9.QYtVOl6o87doRiT2EsezLqtSpz27K-nEZ4KqcmZV5Ac";
+    var cmd = document.getElementById('num_com_encour').textContent.slice(1,);
+    var allchecked = true;
+    $.ajax({
+        url: "/ventes/"+cmd,
+        beforeSend: function (xhr){
+            xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_ADMIN);
+        },
+        success: function (vente) {
+            $.ajax({
+                url: "/ventes/"+vente.id,
+                methode:"DELETE",
+                beforeSend: function (xhr){
+                    xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_ADMIN);
+                },
+                success: function (annulation) {
+                    console.log(annulation)
+                    document.getElementById('button_status').className = "btn btn-secondary position-absolute m-2 px-2 py-1"
+                    document.getElementById('button_status').onclick = function onclick(event) {}
+                    $('#button_status').empty();
+
+                    vider_cmd_en_cours();
+                    rechargergestion();
+                }
+            });
+        }
+    });
+
+
 
 }
