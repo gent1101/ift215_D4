@@ -45,5 +45,5 @@ app.use(function(err, req, res, next) {
   return res.status(500).json(err);
 });
 
-app.listen(port, () => console.log(`Pro-gramme écoute au http://localhost:${port}`));
+app.listen(port, () => console.log(`Pro-gramme écoute au http://localhost:${port}/#/`));
 
