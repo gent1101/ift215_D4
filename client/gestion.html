@@ -25,6 +25,7 @@
                 </section>
         </div>
 
+        <!-- Affichage de la command en cours de traitement -->
         <div class="card shadow border-primary rounded-3 position-relative m-1 px-0" id="vente_actuelle" style="width: 49%; height: 500px;">
             <h3 class="card-header text-center">Commande en cours</h3>
             <div class="m-2 mb-0 py-0" style="width: 95%">
@@ -41,6 +42,7 @@
                 <t id="status_com_encour"></t>
                 <hr class="m-0 p-0">
             </div>
+            <!-- Affihage des produit de la commande-->
             <div class="py-0 mx-2" style="width: 95%">
                 <div  class="mb-auto m-2 p-0">
                     <h4  class="text-center" id="cart_tittle_gest" style=" display: block">Selectionner une commande</h4>
@@ -62,12 +64,25 @@
                 <div id="cart_table_gest_button" style="height: 50px; display: none;">
                     <button type="button" id="button_status" class="btn btn-secondary position-absolute m-2 px-2 py-1" onclick="check_assemblage()" style="bottom: 0px; right: 0px">
                     </button>
-                    <button type="button" id="button_annuler_vente" class="btn btn-danger position-absolute m-2 px-2 py-1" onclick="annuler_vente()" style="bottom: 0px; left: 0px">
+                    <button type="button" id="button_annuler_vente" class="btn btn-danger position-absolute m-2 px-2 py-1" onclick="conf_annul_gest_on()" style="bottom: 0px; left: 0px">
                         <h5>Annuler la vente</h5>
                     </button>
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <!-- Affichage de la fenêtre de confirmation d'annulation d'une commande -->
+    <div class="position-fixed bg-black bg-opacity-25 " id="conf_annul_gest" style="height: 100%; width: 100%; top: 0px; left: 0px;display: none">
+        <div class="position-relative bg-white rounded-3" id="annulation_buttons_gest" style="width: 30%; height: 20%; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px solid gray;">
+            <h6 class="text-center p-1">Êtes-vous sur de vouloir annuler ?</h6>
+            <button type="button" class=" btn btn-secondary position-absolute m-2 py-0 px-2" onclick="conf_annul_gest_off()" style="bottom: 0;left: 0px">
+                <h4>Non</h4>
+            </button>
+            <button type="button" class=" btn btn-secondary position-absolute m-2 py-0 px-2" onclick="annuler_vente()" style="bottom: 0;right: 0px">
+                <h4>Oui</h4>
+            </button>
         </div>
     </div>
 
