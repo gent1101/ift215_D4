@@ -154,10 +154,10 @@ function cmd_en_cours(vente_id){
                     $('#button_status').empty();
 
                     //Si le status de la commande selectionnée est 'recue'
-                    //Afficher la liste des produits à empacter et mettre le bouttons de confirmation inutilisable 'Assembler'
+                    //Afficher la liste des produits à empacter et mettre le bouttons de confirmation inutilisable 'Confirmer l'emballage'
                     if(vente.status == 'reçue'){
                         document.getElementById('cart_table_gest').style.display="table"
-                        $('#button_status').append('<h4>Assembler</h4>')
+                        $('#button_status').append('<h5>Confirmer l\'emballage</h5>')
                         document.getElementById('button_status').className = "btn btn-secondary position-absolute m-2 px-2 py-1"
                         document.getElementById('button_status').onclick = function onclick(event) {}
                         document.getElementById('cart_table_gest_button').style.display="block"
