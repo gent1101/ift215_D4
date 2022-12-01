@@ -29,4 +29,8 @@ router.get('/gestion', function(req, res){
     res.sendFile(path.join(__dirname + '/../client/gestion.html'));
 });
 
+router.get('/aide', function(req, res){
+    res.sendFile(path.join(__dirname + '/../client/aide.html'));
+});
+
 module.exports = router

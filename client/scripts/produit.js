@@ -85,7 +85,6 @@ function add_item(id_item){
             xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_CLIENT);
         },
         success: function( result ) {
-            $('#item_counter').text(result.items.length)
             rechargerpanier();
         }
     });
@@ -101,7 +100,6 @@ function remove_item(id_item){
             xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_CLIENT);
         },
         success: function( result ) {
-            $('#item_counter').text(result.items.length)
             rechargerpanier();
         }
     });
@@ -115,6 +113,7 @@ function chargerpanier(){
             xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_CLIENT);
         },
         success: function (result) {
+            $('#item_counter').text(result.items.length)
             if(result.valeur == 0)
                 document.getElementById("cart_body").style.display="none";
             Total = total_to_html(result.valeur)
@@ -173,8 +172,6 @@ function changerquantitepanier(item_id,val,quantite,max){
             xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_CLIENT);
         },
         success: function( result ) {
-
-            $('#item_counter').text(result.items.length)
             rechargerpanier();
 
         }
@@ -392,7 +389,11 @@ function NumIsBad(input){
 function emailIsBad(input){
     input.value = input.value.replaceAll(' ', '');
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if(input.value == '') {
+    if(input.value == '' || input.value == 'exemple@courriel.com') {
+        if(input.id == 'email1'){
+            input.value = 'exemple@courriel.com'
+            input.style.color = "grey"
+        }
         input.style.backgroundColor = "#ffc6c6"
         return true
     }
@@ -405,14 +406,22 @@ function emailIsBad(input){
         return false;
 }
 
+function emailExemple(input){
+    if(input.value == 'exemple@courriel.com') {
+        input.style.color = "black"
+        input.value = ''
+    }
+}
+
 function passercommander(){
-    TOKEN_ADMIN  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MCwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjM2NzUyMzAxLCJleHAiOjE4MzY3NTk1MDF9.QYtVOl6o87doRiT2EsezLqtSpz27K-nEZ4KqcmZV5Ac";
+    //TOKEN_ADMIN  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MCwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjM2NzUyMzAxLCJleHAiOjE4MzY3NTk1MDF9.QYtVOl6o87doRiT2EsezLqtSpz27K-nEZ4KqcmZV5Ac";
+    TOKEN_CLIENT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MSwicm9sZSI6ImNsaWVudCIsImlhdCI6MTYzNjc1MjI1MywiZXhwIjoxODM2NzUyMjUzfQ.qMcKC0NeuVseNSeGtyaxUvadutNAfzxlhL5LYPsRB8k";
     $.ajax({
         url: "/ventes",
         method:"POST",
-        data: {"idClient": 1},
+        data:{"idClient":1},
         beforeSend: function (xhr){
-            xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_ADMIN);
+            xhr.setRequestHeader('Authorization', "Basic "+ TOKEN_CLIENT);
         },
         success: function (result) {
             console.log(result);
