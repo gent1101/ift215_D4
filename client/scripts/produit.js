@@ -162,15 +162,15 @@ function chargerpanier_conf(){
 
 //Charge et affiche la liste des produits
 function chargerproduit(){
-        $.ajax({
-            url: "/produits",
-            success: function (result) {
-                $.each(result, function (key, value) {
-                    item = item_to_html(value)
-                    $('#list_items').append(item);
-                });
-            }
-        });
+    $.ajax({
+        url: "/produits",
+        success: function (result) {
+            $.each(result, function (key, value) {
+                item = item_to_html(value)
+                $('#list_items').append(item);
+            });
+        }
+    });
     chargerpanier();
 
 }
@@ -211,7 +211,7 @@ function confirmation_verification(){
     var adresse = document.getElementById("adresse")
     var ville = document.getElementById("ville")
     var province = document.getElementById("province")
-    var cp = document.getElementById("CP")
+    var code_postal = document.getElementById("CP")
     var card_num = document.getElementById("card_num")
     var card_name = document.getElementById("card_name")
     var exp = document.getElementById("card_date")
@@ -219,16 +219,22 @@ function confirmation_verification(){
     var email1 = document.getElementById("email1")
     var email2 = document.getElementById("email2")
 
-    exp.min='2022-11'
 
     var adresse_empty = isEmpty(adresse)
     var ville_empty = isEmpty(ville)
     var province_empty = isEmpty(province)
-    var cp_empty = isEmpty(cp)
-    var card_num_bad = NumIsBad(card_num)
+    var cp_empty = isEmpty(code_postal)
     var card_name_empty = isEmpty(card_name)
+    var card_num_empty = isEmpty(card_num)
     var exp_empty = isEmpty(exp)
+    var CVC_empty = isEmpty(CVC)
+    var email1_empty = isEmpty(email1)
+    var email2_empty = isEmpty(email2)
+
+    var cp_bad = CPisBad(code_postal)
+    var card_num_bad = NumIsBad(card_num)
     var CVC_bad = NumIsBad(CVC)
+
     var email1_bad = emailIsBad(email1)
     var email2_bad = emailIsBad(email2)
     var notSameEmails = true;
@@ -244,8 +250,8 @@ function confirmation_verification(){
     }
 
 
-    //Si un n'est pas correct, on fait on ne poursuit pas
-    if(adresse_empty || ville_empty || province_empty || cp_empty || card_name_empty || card_num_bad || exp_empty || CVC_bad || email1_bad || email2_bad || notSameEmails)
+    //Si un n'est pas correct, on ne poursuit pas
+    if(adresse_empty || ville_empty || province_empty || cp_empty || cp_bad || card_name_empty || card_num_bad || exp_empty || CVC_bad || email1_bad || email2_bad || notSameEmails || card_num_empty || email1_empty || email2_empty || CVC_empty)
         return;
 
     //Sinon on passe la commande
@@ -294,15 +300,31 @@ function emailIsBad(input){
 }
 
 //Retirer l'exemple pendant l'écriture
-function emailExemple(input){
-    if(input.value == 'exemple@courriel.com') {
-        input.style.color = "black"
-        input.value = ''
+function aideExemple(input){
+    switch (input.value) {
+        case '123 rue exemple':
+        case 'entrer le nom de votre ville':
+        case 'A1B 2C3':
+        case 'entrer le nom comme indiqué sur la carte':
+        case 'entrer les 16 chiffres de votre carte':
+        case 'exemple@courriel.com':
+            input.style.color = "black"
+            input.value = ''
     }
 }
 
-//Vérifier si le champ est vide, si oui le mettre rouge
+//Vérifier si le champ est vide ou inchangé, si oui le mettre rouge
 function isEmpty(input){
+    switch (input.value) {
+        case '123 rue exemple':
+        case 'entrer le nom de votre ville':
+        case 'A1B 2C3':
+        case 'entrer le nom comme indiqué sur la carte':
+        case 'entrer les 16 chiffres de votre carte':
+        case 'exemple@courriel.com':
+            input.style.backgroundColor = "#ffc6c6"
+            return true
+    }
     if(input.value == '') {
         input.style.backgroundColor = "#ffc6c6"
         return true
@@ -358,26 +380,23 @@ function item_to_html(item){
 
 //Vérifier que l'entrée numérique n'est que des chiffres et a assez de caractères
 function NumIsBad(input){
-    if(input.value == '') {
-        input.style.backgroundColor = "#ffc6c6"
-        return true
-    }
+
     if(input.value.length != input.maxLength){
         input.style.backgroundColor = "#ffc6c6"
         alert(input.name+" est trop court")
         return true;
     }
-    if(isNaN(input.value)){
-        input.style.backgroundColor = "#ffc6c6"
-        alert(input.name+" ne doit contenir que des chiffres")
-        return true;
-    }
     else
         return false
-
 }
 
-
+function CPisBad(input){
+    if(input.value.length != 7){
+        input.style.backgroundColor = "#ffc6c6"
+        alert(input.name+" est trop court")
+        return true;
+    }
+}
 //Transforme le panier en vente
 function passercommander(){
     //TOKEN_ADMIN  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudCI6MCwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjM2NzUyMzAxLCJleHAiOjE4MzY3NTk1MDF9.QYtVOl6o87doRiT2EsezLqtSpz27K-nEZ4KqcmZV5Ac";
